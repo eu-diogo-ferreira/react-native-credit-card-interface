@@ -2,10 +2,11 @@ import React from "react";
 
 import { Container, TextInput } from "./styles";
 
-const Input = ({ width }) => {
+const Input = ({ width, icon, placeholder }) => {
   return (
     <Container width={width}>
-      <TextInput />
+      {icon && icon}
+      <TextInput placeholder={placeholder}/>
     </Container>
   );
 }
