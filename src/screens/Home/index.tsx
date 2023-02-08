@@ -1,52 +1,95 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Card, Input } from "../../components";
+
+import { getBrand } from "../../components/Input/brand";
 
 import IconUser from "../../assets/icon-user.svg";
 import IconCode from "../../assets/icon-code.svg";
 import IconDate from "../../assets/icon-date.svg";
 import IconNumber from "../../assets/icon-number.svg";
 
-import { Container, Header, Title, Subtitle, Content, View, Button, TextButton } from "./styles";
+import { ScrollView, Container, Header, Title, Subtitle, Content, View, Button, TextButton } from "./styles";
 
 const Home = () => {
+  const [icon, setIcon] = useState({
+    icon: false
+  });
+  const [data, setData] = useState({
+    name: '',
+    number: '',
+    validate: '',
+    cvv: ''
+  });
+
   return (
-    <Container>
-      <Header>
-        <Title>Meu Cartão</Title>
-        <Subtitle>Insira os dados do cartão</Subtitle>
-      </Header>
+    <ScrollView>
+      <Container>
+        <Header>
+          <Title>Meu Cartão</Title>
+          <Subtitle>Insira os dados do cartão</Subtitle>
+        </Header>
 
-      <Content>
-        <Card />
+        <Content>
+          <Card data={data} back={false} icon={icon?.icon}/>
 
-        <Input
-          placeholder="Nome do titular"
-          icon={<IconUser fill="#6a1b9a" width={16} height={16}/>}
-        />
-        <Input
-          placeholder="Número do cartão"
-          icon={<IconNumber fill="#6a1b9a" width={16} height={16}/>}
-        />
-        
-        <View>
           <Input
-            placeholder="Validade"
-            icon={<IconDate fill="#6a1b9a" width={16} height={16}/>}
-            width="45%"
+            placeholder="Nome do titular"
+            value={data.name}
+            type="text"
+            mask={false}
+            options=""
+            onChangeText={(text) => setData({ ...data, name: text })}
+            icon={<IconUser fill="#6a1b9a" width={16} height={16}/>}
+            width="100%"
           />
           <Input
-            placeholder="CVV"
-            icon={<IconCode fill="#6a1b9a" width={16} height={16}/>}
-            width="45%"
+            placeholder="Número do cartão"
+            value={data.number}
+            type="credit-card"
+            mask={true}
+            options=""
+            onChangeText={(text) => {
+              setData({ ...data, number: text });
+              setIcon(getBrand(text));
+            }}
+            icon={<IconNumber fill="#6a1b9a" width={16} height={16}/>}
+            width="100%"
           />
-        </View>
-      </Content>
+          
+          <View>
+            <Input
+              placeholder="Validade"
+              value={data.validate}
+              type="custom"
+              mask={true}
+              options={{
+                mask: '99/99'
+              }}
+              onChangeText={(text) => setData({ ...data, validate: text })}
+              icon={<IconDate fill="#6a1b9a" width={16} height={16}/>}
+              width="45%"
+            />
+            <Input
+              placeholder="CVV"
+              value={data.cvv}
+              type="custom"
+              mask={true}
+              options={{
+                mask: '9999'
+              }}
+              onChangeText={(text) => setData({ ...data, cvv: text })}
+              icon={<IconCode fill="#6a1b9a" width={16} height={16}/>}
+              width="45%"
+            />
+          </View>
+        </Content>
 
-      <Button>
-        <TextButton>Cadastrar</TextButton>
-      </Button>
-    </Container>
+        <Button>
+          <TextButton>Cadastrar</TextButton>
+        </Button>
+      </Container>
+    </ScrollView>
   );
 }
 
