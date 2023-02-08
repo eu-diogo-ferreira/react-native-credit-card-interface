@@ -1,6 +1,11 @@
-import styled from "styled-components/native"
+import styled from "styled-components/native";
+import { TextInputMask } from "react-native-masked-text"
 
-export const Container = styled.View`
+interface propsContainer {
+  width?: string
+}
+
+export const Container = styled.View<propsContainer>`
   width: ${({ width }) => width ? width : '100%'};
   height: 60px;
   padding: 8px;
@@ -12,6 +17,12 @@ export const Container = styled.View`
 `;
 
 export const TextInput = styled.TextInput`
+  width: 100%;
+  margin-left: 4px;
+  font-weight: bold;
+`;
+
+export const MaskTextInput = styled(TextInputMask)`
   width: 100%;
   margin-left: 4px;
   font-weight: bold;
