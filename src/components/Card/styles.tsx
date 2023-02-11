@@ -7,7 +7,7 @@ export const Container = styled.View`
 `;
 
 export const Content = styled.View`
-  width: 310px;
+  width: 100%;
   height: 160px;
   background-color: #6a1b9a;
   border-radius: 20px;
@@ -29,6 +29,7 @@ export const TextCVV = styled.Text`
 
 export const ViewInformation = styled.View`
   width: 100%;
+  height: 100%;
   padding: 14px;
   flex-direction: row;
   align-items: flex-end;
@@ -37,14 +38,11 @@ export const ViewInformation = styled.View`
 
 export const View = styled.Text`
   width: 80%;
-  margin-top: 50px;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
+  margin-top: 80px;
 `;
 
 interface propsText {
-  fontSize: string,
+  fontSize?: string,
   bold?: boolean
 }
 
