@@ -1,8 +1,28 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 import { Container, TextInput, MaskTextInput } from "./styles";
 
-const Input = ({ width, icon, placeholder, mask, value, type, options, onChangeText }) => {
+interface PropsInput {
+  width?: string,
+  icon: ReactElement | boolean,
+  placeholder: string,
+  mask?: boolean,
+  value: string,
+  type?: any,
+  options?: any,
+  onChangeText: (text: string) => void
+}
+
+const Input: React.FC<PropsInput> = ({
+  width,
+  icon,
+  placeholder,
+  mask,
+  value,
+  type,
+  options,
+  onChangeText
+}) => {
   return (
     <Container width={width}>
       {icon && icon}

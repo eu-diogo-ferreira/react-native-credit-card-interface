@@ -5,7 +5,11 @@ import IconMasterCard from "../../assets/icon-mastercard.svg";
 import IconVisa from "../../assets/icon-visa.svg";
 import IconHiperCard from "../../assets/icon-hiper-card.svg";
 
-const cardBrand = {
+interface propsBrand {
+  [key: string]: any
+}
+
+const cardBrand: propsBrand = {
   '63': {
     icon: <IconElo width={'30%'} height={'30%'}/>
   },
