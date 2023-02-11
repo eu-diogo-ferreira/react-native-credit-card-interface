@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Animated } from "react-native";
 
 import { Card, Input } from "../../components";
 
@@ -12,6 +13,8 @@ import IconNumber from "../../assets/icon-number.svg";
 import { ScrollView, Container, Header, Title, Subtitle, Content, View, Button, TextButton } from "./styles";
 
 const Home = () => {
+  const [widthAnimated, setWidthAnimated] = useState(new Animated.Value(310));
+  const [isBackCardView, setBackCardView] = useState(false);
   const [icon, setIcon] = useState({
     icon: false
   });
@@ -22,6 +25,44 @@ const Home = () => {
     cvv: ''
   });
 
+  const animatedCard = (isBack: boolean) => {
+    if(isBack && !isBackCardView) {
+      Animated.timing(widthAnimated, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: false
+      }).start();
+
+      setTimeout(() => {
+        Animated.timing(widthAnimated, {
+          toValue: 310,
+          duration: 200,
+          useNativeDriver: false
+        }).start();
+
+        setBackCardView(true);  
+      }, 200);
+    }
+
+    if(!isBack && isBackCardView) {
+      Animated.timing(widthAnimated, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: false
+      }).start();
+
+      setTimeout(() => {
+        Animated.timing(widthAnimated, {
+          toValue: 310,
+          duration: 200,
+          useNativeDriver: false
+        }).start();
+        
+        setBackCardView(false);
+      }, 200);
+    }
+  }
+
   return (
     <ScrollView>
       <Container>
@@ -31,7 +72,9 @@ const Home = () => {
         </Header>
 
         <Content>
-          <Card data={data} back={false} icon={icon?.icon}/>
+          <Animated.View style={{ width: widthAnimated }}>
+            <Card data={data} back={isBackCardView} icon={icon?.icon}/>
+          </Animated.View>
 
           <Input
             placeholder="Nome do titular"
@@ -39,7 +82,10 @@ const Home = () => {
             type="text"
             mask={false}
             options=""
-            onChangeText={(text) => setData({ ...data, name: text })}
+            onChangeText={(text) => {
+              setData({ ...data, name: text });
+              animatedCard(false);
+            }}
             icon={<IconUser fill="#6a1b9a" width={16} height={16}/>}
             width="100%"
           />
@@ -52,6 +98,7 @@ const Home = () => {
             onChangeText={(text) => {
               setData({ ...data, number: text });
               setIcon(getBrand(text));
+              animatedCard(false);
             }}
             icon={<IconNumber fill="#6a1b9a" width={16} height={16}/>}
             width="100%"
@@ -66,7 +113,10 @@ const Home = () => {
               options={{
                 mask: '99/99'
               }}
-              onChangeText={(text) => setData({ ...data, validate: text })}
+              onChangeText={(text) => {
+                setData({ ...data, validate: text });
+                animatedCard(false);
+              }}
               icon={<IconDate fill="#6a1b9a" width={16} height={16}/>}
               width="45%"
             />
@@ -78,7 +128,10 @@ const Home = () => {
               options={{
                 mask: '9999'
               }}
-              onChangeText={(text) => setData({ ...data, cvv: text })}
+              onChangeText={(text) => {
+                setData({ ...data, cvv: text });
+                animatedCard(true);
+              }}
               icon={<IconCode fill="#6a1b9a" width={16} height={16}/>}
               width="45%"
             />

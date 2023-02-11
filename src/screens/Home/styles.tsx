@@ -1,25 +1,29 @@
 import styled from "styled-components/native";
 import { Dimensions } from "react-native";
 
+import { getStatusBarHeight } from "react-native-status-bar-height";
+
 const { height } = Dimensions.get('window');
 
 export const ScrollView = styled.ScrollView`
   width: 100%;
   height: 100%;
+  background-color: #4e455410;
 `;
 
 export const Container = styled.View`
   width: 100%;
+  /* height: 100%; */
   height: ${height}px;
   padding: 16px;
   flex: 1;
   justify-content: space-between;
   align-items: center;
-  background-color: #4e455410;
 `;
 
 export const Header = styled.View`
   width: 100%;
+  margin-top: ${getStatusBarHeight()}px;
 `;
 
 export const Title = styled.Text`
